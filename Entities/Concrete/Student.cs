@@ -9,16 +9,16 @@ namespace Entities.Concrete
 {
     public class Student: IEntity
     {
-        public Guid Id{ get; set; }
+        public int Id{ get; set; }
+        public int StudentNo { get; set; }
         public string FirstName{ get; set; }
         public string LastName{ get; set; }
         public string Email{ get; set; }
-        public Address Address { get; set; }
+        public int CityId { get; set; }
+        public string FullAddress { get; set; }
         public DateTime CreatedDate{ get; set; }
-
-        public Guid DepartmentId { get; set; }
+        public int DepartmentId { get; set; }
         public virtual Department Department { get; set; }
-
         public virtual ICollection<Course> Courses { get; set; }
     }
 }
