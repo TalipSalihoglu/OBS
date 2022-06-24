@@ -1,6 +1,8 @@
-﻿namespace Entities.Concrete
+﻿using Core.Entities.Abstract;
+
+namespace Entities.Concrete
 {
-    public class Exam
+    public class Exam:IEntity
     {
         public Guid Id { get; set; }
         public Guid CourseId { get; set; }

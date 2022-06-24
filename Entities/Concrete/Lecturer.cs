@@ -1,6 +1,8 @@
-﻿namespace Entities.Concrete
+﻿using Core.Entities.Abstract;
+
+namespace Entities.Concrete
 {
-    public class Lecturer
+    public class Lecturer:IEntity
     {
         public Guid Id { get; set; }
         public string Name { get; set; }
