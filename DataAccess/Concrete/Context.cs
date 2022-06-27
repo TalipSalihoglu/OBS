@@ -12,7 +12,7 @@ namespace DataAccess.Concrete
     {
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer("server=.\\SQLEXPRESS;database=dbOBS;integrated security=true;");
+            optionsBuilder.UseSqlServer("server=.\\SQLEXPRESS;database=DB_OBS_test;integrated security=true;");
         }
 
         public DbSet<Student> Students{ get; set; }
@@ -21,6 +21,6 @@ namespace DataAccess.Concrete
         public DbSet<Exam> Exams{ get; set; }
         public DbSet<Department> Departments { get; set; }
         public DbSet<City> Cities { get; set; }
-
+        public DbSet<StudentCourse> StudentCourses { get; set; }
     }
 }

@@ -47,6 +47,10 @@ namespace DataAccess.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int>("LecturerId")
                         .HasColumnType("int");
 
@@ -54,14 +58,9 @@ namespace DataAccess.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("StudentId")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
 
                     b.HasIndex("LecturerId");
-
-                    b.HasIndex("StudentId");
 
                     b.ToTable("Courses");
                 });
@@ -118,11 +117,10 @@ namespace DataAccess.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<string>("City")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("CityId")
+                        .HasColumnType("int");
 
-                    b.Property<int?>("DepartmentId")
+                    b.Property<int>("DepartmentId")
                         .HasColumnType("int");
 
                     b.Property<string>("Email")
@@ -191,17 +189,32 @@ namespace DataAccess.Migrations
                     b.ToTable("Students");
                 });
 
+            modelBuilder.Entity("Entities.Concrete.StudentCourse", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<int>("CourseId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("StudentId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("StudentCourses");
+                });
+
             modelBuilder.Entity("Entities.Concrete.Course", b =>
                 {
                     b.HasOne("Entities.Concrete.Lecturer", "Lecturer")
-                        .WithMany("Courses")
+                        .WithMany()
                         .HasForeignKey("LecturerId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.HasOne("Entities.Concrete.Student", null)
-                        .WithMany("Courses")
-                        .HasForeignKey("StudentId");
 
                     b.Navigation("Lecturer");
                 });
@@ -219,7 +232,9 @@ namespace DataAccess.Migrations
                 {
                     b.HasOne("Entities.Concrete.Department", null)
                         .WithMany("Lecturers")
-                        .HasForeignKey("DepartmentId");
+                        .HasForeignKey("DepartmentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Entities.Concrete.Student", b =>
@@ -243,16 +258,6 @@ namespace DataAccess.Migrations
                     b.Navigation("Lecturers");
 
                     b.Navigation("Students");
-                });
-
-            modelBuilder.Entity("Entities.Concrete.Lecturer", b =>
-                {
-                    b.Navigation("Courses");
-                });
-
-            modelBuilder.Entity("Entities.Concrete.Student", b =>
-                {
-                    b.Navigation("Courses");
                 });
 #pragma warning restore 612, 618
         }

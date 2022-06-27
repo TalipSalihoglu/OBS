@@ -11,6 +11,6 @@ namespace DataAccess.Abstract
 {
     public interface IStudentDal : IGenericRepository<Student>
     {
-        Student GetStudentDetail(Expression<Func<Student, bool>> filter);
+       
     }
 }

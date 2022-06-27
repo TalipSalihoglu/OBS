@@ -4,7 +4,7 @@ using Entities.Concrete;
 
 namespace DataAccess.Concrete
 {
-    public class LecturetDal : GenericRepository<Lecturer, Context>, ILecturerDal
+    public class LecturerDal : GenericRepository<Lecturer, Context>, ILecturerDal
     {
     }
 }

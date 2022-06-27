@@ -13,16 +13,5 @@ namespace DataAccess.Concrete
 {
     public class StudentDal : GenericRepository<Student, Context>, IStudentDal
     {
-        public Student GetStudentDetail(Expression<Func<Student, bool>> filter)
-        {
-            using (var context = new Context())
-            {
-                return context.Students
-                    .Include(co=>co.Courses)
-                    .Include(de=>de.Department)
-                    .SingleOrDefault(filter);
-            }
-
-        }
     }
 }
