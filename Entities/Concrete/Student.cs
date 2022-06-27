@@ -19,6 +19,6 @@ namespace Entities.Concrete
         public DateTime CreatedDate{ get; set; }
         public int DepartmentId { get; set; }
         public virtual Department Department { get; set; }
-        public virtual ICollection<Course> Courses { get; set; }
+        //public virtual ICollection<Course> Courses { get; set; }
     }
 }
