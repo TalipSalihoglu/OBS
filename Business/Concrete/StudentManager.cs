@@ -19,6 +19,7 @@ namespace Business.Concrete
         }
         public void Add(Student student)
         {
+            student.CreatedDate= DateTime.Now;
             _studentDal.Add(student);
         }
 
@@ -29,12 +30,8 @@ namespace Business.Concrete
 
         public Student Get(Expression<Func<Student, bool>> filter)
         {
-           return _studentDal.Get(filter);
-        }
-
-        public Student GetDetail(Expression<Func<Student, bool>> filter)
-        {
-            return _studentDal.GetStudentDetail(filter);
+            return _studentDal.Get(filter);
+        
         }
 
         public IList<Student> GetList(Expression<Func<Student, bool>> filter = null)
