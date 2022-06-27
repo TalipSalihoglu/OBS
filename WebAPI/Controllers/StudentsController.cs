@@ -1,4 +1,5 @@
-﻿using Business.Abstract;
+﻿using AutoMapper;
+using Business.Abstract;
 using Entities.Concrete;
 using Entities.Dtos.StudentDtos;
 using Microsoft.AspNetCore.Http;
@@ -10,30 +11,19 @@ namespace WebAPI.Controllers
     [ApiController]
     public class StudentsController : ControllerBase
     {
-        //[HttpGet]
-        //public Task<IActionResult> GetAll()
-        //{
-
-        //}
         private readonly IStudentService _studentService;
+        private readonly IMapper _mapper;
 
-        public StudentsController(IStudentService studentService)
+        public StudentsController(IStudentService studentService, IMapper mapper)
         {
             _studentService = studentService;
+            _mapper = mapper;
         }
 
         [HttpPost("add")]
         public IActionResult Add(CreateStudentDto student)
         {
-            Student s = new Student() {
-                FirstName=student.FirstName,
-                LastName=student.LastName,
-                DepartmentId=student.DepartmentId,
-                CityId = student.CityId,
-                FullAddress = student.FullAddress,
-                Email = student.Email,
-            };
-            
+            Student s = _mapper.Map<Student>(student);
             _studentService.Add(s);
             return Ok();
         }
@@ -41,16 +31,7 @@ namespace WebAPI.Controllers
         [HttpPost("update")]
         public IActionResult Update(UpdateStudentDto student)
         {
-            Student s = new Student()
-            {
-                FirstName = student.FirstName,
-                LastName = student.LastName,
-                DepartmentId = student.DepartmentId,
-                CityId = student.CityId,
-                FullAddress = student.FullAddress,
-                Email = student.Email,
-            };
-
+            Student s = _mapper.Map<Student>(student);
             _studentService.Update(s);
             return Ok();
         }
@@ -59,7 +40,7 @@ namespace WebAPI.Controllers
         [HttpGet("getbyid")]
         public IActionResult GetById(int id)
         {       
-            var result = _studentService.GetDetail(x=>x.Id==id);
+            var result = _studentService.Get(x=>x.Id==id);
             return Ok(result);
         }
 
