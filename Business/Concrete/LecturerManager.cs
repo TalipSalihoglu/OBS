@@ -1,4 +1,6 @@
 ﻿using Business.Abstract;
+using Business.FluentValidation;
+using Core.CrossCuttingConcerns;
 using DataAccess.Abstract;
 using DataAccess.Concrete;
 using Entities.Concrete;
@@ -24,6 +26,7 @@ namespace Business.Concrete
 
         public void Add(Lecturer lecturer)
         {
+            ValidationTool.Validate(new LecturerValidator(),lecturer);
             _lecturerDal.Add(lecturer);
         }
 
@@ -52,6 +55,7 @@ namespace Business.Concrete
 
         public void Update(Lecturer lecturer)
         {
+            ValidationTool.Validate(new LecturerValidator(), lecturer);
             _lecturerDal.Update(lecturer);
         }
     }

@@ -1,6 +1,9 @@
 ﻿using Business.Abstract;
+using Business.FluentValidation;
+using Core.CrossCuttingConcerns;
 using DataAccess.Abstract;
 using Entities.Concrete;
+using FluentValidation;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,6 +23,7 @@ namespace Business.Concrete
         public void Add(Student student)
         {
             student.CreatedDate= DateTime.Now;
+            ValidationTool.Validate(new StudentValidator(), student);
             _studentDal.Add(student);
         }
 
@@ -41,6 +45,7 @@ namespace Business.Concrete
 
         public void Update(Student student)
         {
+            ValidationTool.Validate(new StudentValidator(), student);
             _studentDal.Update(student);
         }
     }

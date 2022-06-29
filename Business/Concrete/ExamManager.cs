@@ -1,4 +1,6 @@
 ﻿using Business.Abstract;
+using Business.FluentValidation;
+using Core.CrossCuttingConcerns;
 using DataAccess.Abstract;
 using Entities.Concrete;
 using Entities.Dtos.ExamDtos;
@@ -21,6 +23,7 @@ namespace Business.Concrete
 
         public void Add(Exam exam)
         {
+            ValidationTool.Validate(new ExamValidator(), exam);
             _examDal.Add(exam);
         }
 
@@ -44,6 +47,7 @@ namespace Business.Concrete
         }
         public void Update(Exam exam)
         {
+            ValidationTool.Validate(new ExamValidator(), exam);
             _examDal.Update(exam);
         }
 
