@@ -99,12 +99,14 @@ namespace DataAccess.Migrations
                     b.Property<decimal>("Midterm")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<int>("StudentId")
+                    b.Property<int?>("StudentId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
                     b.HasIndex("CourseId");
+
+                    b.HasIndex("StudentId");
 
                     b.ToTable("Exams");
                 });
@@ -140,6 +142,8 @@ namespace DataAccess.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("CityId");
 
                     b.HasIndex("DepartmentId");
 
@@ -184,34 +188,17 @@ namespace DataAccess.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("CityId");
+
                     b.HasIndex("DepartmentId");
 
                     b.ToTable("Students");
                 });
 
-            modelBuilder.Entity("Entities.Concrete.StudentCourse", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<int>("CourseId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("StudentId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("StudentCourses");
-                });
-
             modelBuilder.Entity("Entities.Concrete.Course", b =>
                 {
                     b.HasOne("Entities.Concrete.Lecturer", "Lecturer")
-                        .WithMany()
+                        .WithMany("Courses")
                         .HasForeignKey("LecturerId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -221,43 +208,62 @@ namespace DataAccess.Migrations
 
             modelBuilder.Entity("Entities.Concrete.Exam", b =>
                 {
-                    b.HasOne("Entities.Concrete.Course", null)
-                        .WithMany("Exams")
+                    b.HasOne("Entities.Concrete.Course", "Courses")
+                        .WithMany()
                         .HasForeignKey("CourseId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.HasOne("Entities.Concrete.Student", "Student")
+                        .WithMany()
+                        .HasForeignKey("StudentId");
+
+                    b.Navigation("Courses");
+
+                    b.Navigation("Student");
                 });
 
             modelBuilder.Entity("Entities.Concrete.Lecturer", b =>
                 {
-                    b.HasOne("Entities.Concrete.Department", null)
-                        .WithMany("Lecturers")
-                        .HasForeignKey("DepartmentId")
+                    b.HasOne("Entities.Concrete.City", "City")
+                        .WithMany()
+                        .HasForeignKey("CityId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
 
-            modelBuilder.Entity("Entities.Concrete.Student", b =>
-                {
                     b.HasOne("Entities.Concrete.Department", "Department")
-                        .WithMany("Students")
+                        .WithMany()
                         .HasForeignKey("DepartmentId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("City");
 
                     b.Navigation("Department");
                 });
 
-            modelBuilder.Entity("Entities.Concrete.Course", b =>
+            modelBuilder.Entity("Entities.Concrete.Student", b =>
                 {
-                    b.Navigation("Exams");
+                    b.HasOne("Entities.Concrete.City", "City")
+                        .WithMany()
+                        .HasForeignKey("CityId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Entities.Concrete.Department", "Department")
+                        .WithMany()
+                        .HasForeignKey("DepartmentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("City");
+
+                    b.Navigation("Department");
                 });
 
-            modelBuilder.Entity("Entities.Concrete.Department", b =>
+            modelBuilder.Entity("Entities.Concrete.Lecturer", b =>
                 {
-                    b.Navigation("Lecturers");
-
-                    b.Navigation("Students");
+                    b.Navigation("Courses");
                 });
 #pragma warning restore 612, 618
         }
