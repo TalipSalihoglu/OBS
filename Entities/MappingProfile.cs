@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Entities.Concrete;
 using Entities.Dtos.CourseDtos;
+using Entities.Dtos.ExamDtos;
 using Entities.Dtos.LecturerDtos;
 using Entities.Dtos.StudentDtos;
 using System;
@@ -22,7 +23,9 @@ namespace Entities
             CreateMap<UpdateLecturerDto, Lecturer>();
 
             CreateMap<CreateCourseDto, Course>();
-           
+
+            CreateMap<CreateExamDto, Exam>();
+
         }
     }
 }

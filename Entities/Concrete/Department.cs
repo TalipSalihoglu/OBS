@@ -1,10 +1,14 @@
-﻿namespace Entities.Concrete
+﻿using Core.Entities.Abstract;
+
+namespace Entities.Concrete
 {
-    public class Department
+    public class Department :IEntity
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public virtual ICollection<Lecturer> Lecturers { get; set; }
-        public virtual ICollection<Student> Students { get; set; }
+
+        ICollection<Student> Students { get; set; }
+        ICollection<Lecturer> Lecturers{ get; set; }
+
     }
 }
