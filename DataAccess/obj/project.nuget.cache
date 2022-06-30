@@ -1,10 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "3+DPf3ADkyMrOUWlRp+nHnj5YOo8itgUai+Jax1Ky6vJ9x1IFlDzTEt0eIvJhNLqi4FDlTxjmxPyfZb1zN3NMQ==",
+  "dgSpecHash": "cpYvBDgMkQVLwcUrYrnXPWV9cemar6+Pb+rBuru77CyFF2PioSGySBqqV61/Y+U172CGBQs/BvAiRtSUzMd0RA==",
   "success": true,
   "projectFilePath": "C:\\Users\\USER\\Desktop\\.net\\OBS\\DataAccess\\DataAccess.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\USER\\.nuget\\packages\\automapper\\11.0.1\\automapper.11.0.1.nupkg.sha512",
+    "C:\\Users\\USER\\.nuget\\packages\\fluentvalidation\\11.1.0\\fluentvalidation.11.1.0.nupkg.sha512",
     "C:\\Users\\USER\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",
     "C:\\Users\\USER\\.nuget\\packages\\microsoft.csharp\\4.7.0\\microsoft.csharp.4.7.0.nupkg.sha512",
     "C:\\Users\\USER\\.nuget\\packages\\microsoft.data.sqlclient\\2.1.4\\microsoft.data.sqlclient.2.1.4.nupkg.sha512",
