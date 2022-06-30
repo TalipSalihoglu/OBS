@@ -8,6 +8,7 @@ namespace Entities.Dtos.ExamDtos
 {
     public class UpdateExamDto
     {
+        public int Id { get; set; }
         public decimal Midterm { get; set; }
         public decimal Final { get; set; }
         public int StudentId { get; set; }

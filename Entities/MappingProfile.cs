@@ -24,6 +24,7 @@ namespace Entities
 
             CreateMap<CreateCourseDto, Course>();
 
+            CreateMap<UpdateExamDto, Exam>();
             CreateMap<CreateExamDto, Exam>();
 
         }

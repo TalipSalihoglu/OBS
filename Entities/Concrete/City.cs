@@ -7,7 +7,7 @@ namespace Entities.Concrete
         public int Id { get; set; }
         public string Name { get; set; }
 
-        ICollection<Student> Students { get; set; }
-        ICollection<Lecturer> Lecturers { get; set; }
+        public ICollection<Student> Students { get; set; }
+        public ICollection<Lecturer> Lecturers { get; set; }
     }
 }
