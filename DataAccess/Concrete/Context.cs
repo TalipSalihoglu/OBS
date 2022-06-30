@@ -21,6 +21,6 @@ namespace DataAccess.Concrete
         public DbSet<Exam> Exams{ get; set; }
         public DbSet<Department> Departments { get; set; }
         public DbSet<City> Cities { get; set; }
-        //public DbSet<StudentCourse> StudentCourses { get; set; } // Önceki entity yapılarından kaldı.. 
+        public DbSet<StudentCourse> StudentCourses { get; set; } 
     }
 }
