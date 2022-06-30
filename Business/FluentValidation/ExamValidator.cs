@@ -14,8 +14,8 @@ namespace Business.FluentValidation
         {
             RuleFor(x => x.CourseId).NotNull().GreaterThan(0);
             RuleFor(x => x.StudentId).NotNull().GreaterThan(0);
-            RuleFor(x => x.Midterm).GreaterThanOrEqualTo(0);
-            RuleFor(x => x.Final).GreaterThanOrEqualTo(0);
+            RuleFor(x => x.Midterm).GreaterThanOrEqualTo(0).LessThanOrEqualTo(100);
+            RuleFor(x => x.Final).GreaterThanOrEqualTo(0).LessThanOrEqualTo(100);
 
         }
     }
