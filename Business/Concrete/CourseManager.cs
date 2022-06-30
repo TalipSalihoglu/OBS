@@ -15,10 +15,12 @@ namespace Business.Concrete
     public class CourseManager : ICourseService
     {
         private readonly ICourseDal _courseDal;
+        private readonly IStudentCourseService _studentCourseService;
 
-        public CourseManager(ICourseDal courseDal)
+        public CourseManager(ICourseDal courseDal, IStudentCourseService studentCourseService)
         {
             _courseDal = courseDal;
+            _studentCourseService = studentCourseService;
         }
 
         public void Add(Course course)
@@ -34,7 +36,9 @@ namespace Business.Concrete
 
         public Course Get(Expression<Func<Course, bool>> filter)
         {
-           return _courseDal.Get(filter);
+            var course = _courseDal.Get(filter);
+            course.Students = _studentCourseService.GetStudentsOfCourseByCourseId(course.Id);
+            return course;
         }
 
         public IList<Course> GetList(Expression<Func<Course, bool>> filter = null)

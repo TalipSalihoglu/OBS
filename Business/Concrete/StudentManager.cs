@@ -16,9 +16,11 @@ namespace Business.Concrete
     public class StudentManager : IStudentService
     {
         private readonly IStudentDal _studentDal;
-        public StudentManager(IStudentDal studentDal)
+        private readonly IStudentCourseService _studentCourseService;
+        public StudentManager(IStudentDal studentDal, IStudentCourseService studentCourseService)
         {
             _studentDal = studentDal;
+            _studentCourseService = studentCourseService;
         }
         public void Add(Student student)
         {
@@ -34,7 +36,9 @@ namespace Business.Concrete
 
         public Student Get(Expression<Func<Student, bool>> filter)
         {
-            return _studentDal.Get(filter);
+            var student = _studentDal.Get(filter);
+            student.Courses= _studentCourseService.GetCoursesOfStudentByStudentId(student.Id);
+            return student;
         
         }
 
