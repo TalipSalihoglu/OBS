@@ -3,6 +3,7 @@ using Business.Concrete;
 using DataAccess.Abstract;
 using DataAccess.Concrete;
 using AutoMapper;
+using WebAPI.Middlewares;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -24,6 +25,8 @@ builder.Services.AddSingleton<ICourseService,CourseManager>();
 builder.Services.AddSingleton<ICourseDal, CourseDal>();
 builder.Services.AddSingleton<IExamService,ExamManager>();
 builder.Services.AddSingleton<IExamDal, ExamDal>();
+builder.Services.AddSingleton<IStudentCourseService, StudentCourseManager>();
+builder.Services.AddSingleton<IStudentCourseDal, StudentCourseDal>();
 
 
 var app = builder.Build();
@@ -34,7 +37,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
-
+app.UseCustomExceptionMiddleware();
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
