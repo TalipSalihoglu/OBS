@@ -3,6 +3,7 @@ using Entities.Concrete;
 using Entities.Dtos.CourseDtos;
 using Entities.Dtos.ExamDtos;
 using Entities.Dtos.LecturerDtos;
+using Entities.Dtos.StudentCourseDtos;
 using Entities.Dtos.StudentDtos;
 using System;
 using System.Collections.Generic;
@@ -26,6 +27,8 @@ namespace Entities
 
             CreateMap<UpdateExamDto, Exam>();
             CreateMap<CreateExamDto, Exam>();
+
+            CreateMap<CreateStudentCourseDto,StudentCourse>(); 
 
         }
     }
