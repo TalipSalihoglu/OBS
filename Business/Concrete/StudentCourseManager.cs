@@ -28,6 +28,11 @@ namespace Business.Concrete
             _studentCourseDal.Add(studentCourse);
         }
 
+        public void AddStudentToCourse(StudentCourse studentCourse)
+        {
+            _studentCourseDal.Add(studentCourse);
+        }
+
         public void Delete(StudentCourse studentCourse)
         {
             throw new NotImplementedException();

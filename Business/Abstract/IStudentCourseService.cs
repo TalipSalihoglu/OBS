@@ -14,7 +14,7 @@ namespace Business.Abstract
         IList<StudentCourse> GetList(Expression<Func<StudentCourse, bool>> filter = null);
         IList<Course> GetCoursesOfStudentByStudentId(int studentId);
         IList<Student> GetStudentsOfCourseByCourseId(int courseId);
-        void Add(StudentCourse studentCourse);
+        void AddStudentToCourse(StudentCourse studentCourse);
         void Update(StudentCourse studentCourse);
         void Delete(StudentCourse studentCourse);
     }
