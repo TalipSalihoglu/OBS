@@ -1,4 +1,5 @@
 ﻿using Core.Entities.Abstract;
+using Core.Entities.Concrete;
 
 namespace Entities.Concrete
 {
@@ -15,6 +16,9 @@ namespace Entities.Concrete
 
         public int DepartmentId { get; set; }
         public Department Department { get; set; }
+
+        public int UserId { get; set; }
+        public User User { get; set; }
 
         public ICollection<Course> Courses { get; set; }
 

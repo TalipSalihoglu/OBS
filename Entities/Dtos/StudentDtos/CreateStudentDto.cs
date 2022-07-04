@@ -15,5 +15,6 @@ namespace Entities.Dtos.StudentDtos
         public int CityId { get; set; }
         public string FullAddress { get; set; }
         public int DepartmentId { get; set; }
+        public int UserId { get; set; }
     }
 }

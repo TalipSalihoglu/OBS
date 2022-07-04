@@ -1,4 +1,5 @@
 ﻿using Core.Entities.Abstract;
+using Core.Entities.Concrete;
 
 namespace Entities.Concrete
 {
@@ -17,6 +18,9 @@ namespace Entities.Concrete
 
         public int CityId { get; set; }
         public City City{ get; set; }
+
+        public int UserId { get; set; }
+        public User User { get; set; }
 
         public ICollection<Exam> ExamList { get; set; }
 

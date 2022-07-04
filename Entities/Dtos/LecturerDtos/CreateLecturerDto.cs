@@ -12,7 +12,10 @@ namespace Entities.Dtos.LecturerDtos
         public string LastName { get; set; }
         public string Email { get; set; }
         public int CityId { get; set; }
-        public int DepartmentId { get; set; }
         public string FullAddress { get; set; }
+        public int DepartmentId { get; set; }
+        public int UserId { get; set; }
+       
+        
     }
 }
