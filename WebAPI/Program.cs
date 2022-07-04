@@ -27,6 +27,8 @@ builder.Services.AddSingleton<IExamService,ExamManager>();
 builder.Services.AddSingleton<IExamDal, ExamDal>();
 builder.Services.AddSingleton<IStudentCourseService, StudentCourseManager>();
 builder.Services.AddSingleton<IStudentCourseDal, StudentCourseDal>();
+builder.Services.AddSingleton<IUserDal, UserDal>();
+builder.Services.AddSingleton<IUserService, UserManager>();
 
 
 var app = builder.Build();
