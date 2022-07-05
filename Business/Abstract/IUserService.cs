@@ -1,5 +1,7 @@
 ﻿using Core.Entities.Concrete;
+using Core.Utilities.Jwt;
 using Entities.Concrete;
+using Entities.Dtos.LoginDtos;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,5 +15,6 @@ namespace Business.Abstract
     {
         User Get(Expression<Func<User, bool>> filter);
         void Add(User user);
+        string Login(LoginDto loginDto);
     }
 }

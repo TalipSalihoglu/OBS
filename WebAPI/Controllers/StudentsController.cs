@@ -1,7 +1,11 @@
 ﻿using AutoMapper;
 using Business.Abstract;
+using Core.Entities.Concrete;
+using Core.Enums;
+using Core.Utilities.Attributes;
 using Entities.Concrete;
 using Entities.Dtos.StudentDtos;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -39,11 +43,12 @@ namespace WebAPI.Controllers
 
         [HttpGet("getbyid")]
         public IActionResult GetById(int id)
-        {       
-            var result = _studentService.Get(x=>x.Id==id);
+        {
+            var result = _studentService.Get(x => x.Id == id);
             return Ok(result);
         }
 
+        [CustomAuthorize(Roles.student)]
         [HttpGet("getall")]
         public IActionResult GetAll()
         {
