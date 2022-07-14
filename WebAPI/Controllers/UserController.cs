@@ -31,7 +31,6 @@ namespace WebAPI.Controllers
            return Ok();
         }
 
-        [CustomAuthorize(Roles.student)]
         [HttpGet("getUserByUserName")]
         public IActionResult getUserByUserName(string userName)
         {
@@ -43,7 +42,7 @@ namespace WebAPI.Controllers
         public IActionResult Login(LoginDto loginDto)
         {
             var token = _userService.Login(loginDto);
-            return Ok(token);
+            return Ok(new {token = token});
         }
     }
 }

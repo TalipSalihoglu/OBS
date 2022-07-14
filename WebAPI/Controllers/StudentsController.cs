@@ -24,6 +24,7 @@ namespace WebAPI.Controllers
             _mapper = mapper;
         }
 
+        [CustomAuthorize(Roles.admin)]
         [HttpPost("add")]
         public IActionResult Add(CreateStudentDto student)
         {
@@ -40,15 +41,21 @@ namespace WebAPI.Controllers
             return Ok();
         }
 
-
+        [CustomAuthorize(Roles.student,Roles.admin)]
         [HttpGet("getbyid")]
         public IActionResult GetById(int id)
         {
             var result = _studentService.Get(x => x.Id == id);
             return Ok(result);
         }
+        [HttpGet("getbyUserId")]
+        public IActionResult getbyUserId(int userid)
+        {
+            var result = _studentService.Get(x => x.UserId == userid);
+            return Ok(result);
+        }
 
-        [CustomAuthorize(Roles.student)]
+        [CustomAuthorize(Roles.admin)]
         [HttpGet("getall")]
         public IActionResult GetAll()
         {

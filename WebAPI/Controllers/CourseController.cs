@@ -1,5 +1,7 @@
 ﻿using AutoMapper;
 using Business.Abstract;
+using Core.Enums;
+using Core.Utilities.Attributes;
 using Entities.Concrete;
 using Entities.Dtos.CourseDtos;
 using Microsoft.AspNetCore.Http;
@@ -20,6 +22,7 @@ namespace WebAPI.Controllers
             _mapper = mapper;
         }
 
+        [CustomAuthorize(Roles.admin)]
         [HttpPost("add")]
         public IActionResult Add(CreateCourseDto course)
         {
@@ -27,15 +30,16 @@ namespace WebAPI.Controllers
             _courseService.Add(newCourse);
             return Ok();
         }
-
-        [HttpPost("getall")]
+        
+        [HttpGet("getall")]
         public IActionResult GetAll()
         {
             var result =_courseService.GetList();
             return Ok(result);
+     
         }
 
-        [HttpPost("get")]
+        [HttpGet("get")]
         public IActionResult Get(int id)
         {
             var result = _courseService.Get(x=>x.Id==id);

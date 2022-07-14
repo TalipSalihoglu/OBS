@@ -27,5 +27,12 @@ namespace WebAPI.Controllers
             _studentCourseService.AddStudentToCourse(studentCourse);
             return Ok();
         }
+
+        [HttpGet("GetStudentsOfCourseByCourseId")]
+        public IActionResult GetStudentsOfCourseByCourseId(int courseId)
+        {
+            var result = _studentCourseService.GetStudentsOfCourseByCourseId(courseId);
+            return Ok(result);
+        }
     }
 }

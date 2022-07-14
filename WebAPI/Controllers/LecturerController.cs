@@ -1,5 +1,7 @@
 ﻿using AutoMapper;
 using Business.Abstract;
+using Core.Enums;
+using Core.Utilities.Attributes;
 using Entities.Concrete;
 using Entities.Dtos.LecturerDtos;
 using Microsoft.AspNetCore.Http;
@@ -20,6 +22,7 @@ namespace WebAPI.Controllers
             _mapper = mapper;
         }
 
+        [CustomAuthorize(Roles.admin)]
         [HttpPost("add")]
         public IActionResult Add(CreateLecturerDto lecturer)
         {
@@ -40,6 +43,13 @@ namespace WebAPI.Controllers
         public IActionResult GetAll()
         {
             var result = _lecturerService.GetList();
+            return Ok(result);
+        }
+
+        [HttpGet("getbyUserId")]
+        public IActionResult getbyUserId(int userid)
+        {
+            var result = _lecturerService.Get(x => x.UserId == userid);
             return Ok(result);
         }
 
