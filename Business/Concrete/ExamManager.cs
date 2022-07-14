@@ -41,9 +41,9 @@ namespace Business.Concrete
         {
             return _examDal.GetList(x => x.CourseId == courseId);
         }
-        public IList<Exam> GetExamByStudentIdAndCourseId(int studentId,int CourseId)
+        public Exam GetExamByStudentIdAndCourseId(int studentId,int CourseId)
         {
-            return _examDal.GetList(x => x.StudentId == studentId && x.CourseId == CourseId);
+            return _examDal.Get(x => x.StudentId == studentId && x.CourseId == CourseId);
         }
         public void Update(Exam exam)
         {
