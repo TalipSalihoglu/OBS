@@ -17,10 +17,12 @@ namespace Business.Concrete
     {
         private readonly IStudentDal _studentDal;
         private readonly IStudentCourseService _studentCourseService;
-        public StudentManager(IStudentDal studentDal, IStudentCourseService studentCourseService)
+        private readonly IExamService _examService;
+        public StudentManager(IStudentDal studentDal, IStudentCourseService studentCourseService, IExamService examService)
         {
             _studentDal = studentDal;
             _studentCourseService = studentCourseService;
+            _examService = examService;
         }
         public void Add(Student student)
         {
@@ -37,7 +39,15 @@ namespace Business.Concrete
         public Student Get(Expression<Func<Student, bool>> filter)
         {
             var student = _studentDal.Get(filter);
+            if (student is null)
+                throw new Exception("Student not found"); 
             student.Courses= _studentCourseService.GetCoursesOfStudentByStudentId(student.Id);
+            var coursesIdList=student.Courses.Select(c => c.Id).ToList();
+            student.ExamList= new List<Exam>();
+            foreach (var item in coursesIdList)
+            {
+                student.ExamList.Add(_examService.GetExamByStudentIdAndCourseId(student.Id,item));
+            }
             return student;
         
         }

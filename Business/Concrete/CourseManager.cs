@@ -16,11 +16,13 @@ namespace Business.Concrete
     {
         private readonly ICourseDal _courseDal;
         private readonly IStudentCourseService _studentCourseService;
+        private readonly ILecturerService _lecturerService;
 
-        public CourseManager(ICourseDal courseDal, IStudentCourseService studentCourseService)
+        public CourseManager(ICourseDal courseDal, IStudentCourseService studentCourseService, ILecturerService lecturerService)
         {
             _courseDal = courseDal;
             _studentCourseService = studentCourseService;
+            _lecturerService = lecturerService;
         }
 
         public void Add(Course course)
@@ -43,7 +45,12 @@ namespace Business.Concrete
 
         public IList<Course> GetList(Expression<Func<Course, bool>> filter = null)
         {
-            return _courseDal.GetList(filter);
+            var courses= _courseDal.GetList(filter);
+            foreach (var course in courses)
+            {
+                course.Lecturer = _lecturerService.Get(x => x.Id == course.LecturerId);
+            }
+            return courses;
         }
 
         public void Update(Course course)
