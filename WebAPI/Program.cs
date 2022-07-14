@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using Core.Utilities.Jwt;
+using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -27,6 +28,22 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJw
         ClockSkew = TimeSpan.Zero
     };
 });
+
+
+builder.Services.AddCors(options =>
+     options.AddDefaultPolicy(builder =>
+     builder.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin()));
+
+//builder.Host.UseSerilog((ctx, lc) => lc
+//    .WriteTo.File("log.json"));
+
+var logger = new LoggerConfiguration()
+  .ReadFrom.Configuration(builder.Configuration)
+  .Enrich.FromLogContext()
+  .CreateLogger();
+builder.Logging.ClearProviders();
+builder.Logging.AddSerilog(logger);
+
 
 builder.Services.AddControllers().AddNewtonsoftJson(options =>
   options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
@@ -48,7 +65,8 @@ builder.Services.AddSingleton<IStudentCourseService, StudentCourseManager>();
 builder.Services.AddSingleton<IStudentCourseDal, StudentCourseDal>();
 builder.Services.AddSingleton<IUserDal, UserDal>();
 builder.Services.AddSingleton<IUserService, UserManager>();
-
+builder.Services.AddSingleton<IDepartmentDal, DepartmentDal>();
+builder.Services.AddSingleton<IDepartmentService, DepartmentManager>();
 
 
 
@@ -64,8 +82,10 @@ app.UseCustomExceptionMiddleware();
 app.UseHttpsRedirection();
 
 app.UseAuthentication();
+app.UseCors();
 app.UseAuthorization();
 app.UseMiddleware<JwtMiddleware>();
+
 
 app.MapControllers();
 
