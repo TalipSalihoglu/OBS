@@ -31,8 +31,12 @@ namespace Core.Utilities.Attributes
 
             // authorization
             var user = (User)context.HttpContext.Items["User"];
+            if(user == null)
+            {
+                throw new InvalidOperationException("Unauthorized - 401");
+            }
             var userRole = (Roles)user.RoleId;
-            if (user == null || (_roles.Any() && !_roles.Contains(userRole)))
+            if (_roles.Any() && !_roles.Contains(userRole))
             {
                 // not logged in or role not authorized
                 throw new InvalidOperationException("Unauthorized - 401");

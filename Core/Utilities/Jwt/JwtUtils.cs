@@ -32,6 +32,8 @@ namespace Core.Utilities.Jwt
             };
             var token = tokenHandler.CreateToken(tokenDescriptor);
             return tokenHandler.WriteToken(token);
+
+           
         }
 
         public int? ValidateJwtToken(string token)
