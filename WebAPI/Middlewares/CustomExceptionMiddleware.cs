@@ -7,12 +7,12 @@ namespace WebAPI.Middlewares
     public class CustomExceptionMiddleware
     {
         private readonly RequestDelegate _next;
-        //private readonly ILogger _logger;
+        private readonly ILogger<CustomExceptionMiddleware> _logger;
 
-        public CustomExceptionMiddleware(RequestDelegate next)
+        public CustomExceptionMiddleware(RequestDelegate next, ILogger<CustomExceptionMiddleware> logger)
         {
             _next = next;
-            //_logger = logger;
+            _logger = logger;
         }
 
         public async Task Invoke(HttpContext context)
@@ -45,7 +45,7 @@ namespace WebAPI.Middlewares
             context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
 
             string message = "[ERROR]    HTTP " + context.Request.Method + " - " + context.Response.StatusCode + " Error Message " + ex.Message + " in " + watch.Elapsed.TotalMilliseconds + "ms";
-            //_logger.Write(message);
+            _logger.LogError(message);
             Console.WriteLine(message);
 
             var result = JsonConvert.SerializeObject(new { error = ex.Message }, Formatting.None);
